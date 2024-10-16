@@ -1,0 +1,26 @@
+---
+import Base from "@layouts/Base.astro";
+---
+
+<Base title="PocketNaut by Nnisarg Gada - nnisarg.in">
+  <div
+    class="mx-auto flex min-h-screen w-full max-w-5xl flex-col items-center justify-center gap-4 p-4"
+  >
+    <h1 class="text-center text-3xl font-bold">
+      Welcome <span id="user">user</span> to <span class="text-purple-400 font-black">Zenblogs!</span>
+    </h1>
+  </div>
+</Base>
+
+<script>
+
+  const userText = document.getElementById("user") as HTMLSpanElement;
+
+  const user = sessionStorage.getItem("user");
+
+  if (!user) {
+    window.location.href = "/login";
+  }
+
+  userText.innerHTML = user;
+</script>
