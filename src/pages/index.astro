@@ -7,14 +7,22 @@ import Base from "@layouts/Base.astro";
     class="mx-auto flex min-h-screen w-full max-w-5xl flex-col items-center justify-center gap-4 p-4"
   >
     <h1 class="text-center text-3xl font-bold">
-      Welcome <span id="user">user</span> to <span class="text-purple-400 font-black">Zenblogs!</span>
+      Welcome <span id="user">user</span> to <span
+        class="font-black text-purple-400">Zenblogs!</span
+      >
     </h1>
+    <button
+      id="logout"
+      class="text-md mt-12 rounded-md bg-purple-700 px-4 py-2 font-black uppercase text-white transition duration-300 ease-in-out hover:bg-purple-600"
+    >
+      Logout
+    </button>
   </div>
 </Base>
 
 <script>
-
   const userText = document.getElementById("user") as HTMLSpanElement;
+  const logoutButton = document.getElementById("logout") as HTMLButtonElement;
 
   const user = sessionStorage.getItem("user");
 
@@ -22,5 +30,10 @@ import Base from "@layouts/Base.astro";
     window.location.href = "/login";
   }
 
-  userText.innerHTML = user;
+  userText.innerHTML = user || "user";
+
+  logoutButton.onclick = () => {
+    sessionStorage.removeItem("user");
+    window.location.href = "/login";
+  };
 </script>

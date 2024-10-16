@@ -2,18 +2,32 @@
 import Base from "@layouts/Base.astro";
 ---
 
-<Base title="Login - ZenBlogs">
+<Base title="Register - ZenBlogs">
   <div class="h-full w-full bg-purple-300 text-black">
     <div
       class="mx-auto flex min-h-screen w-full max-w-lg items-center justify-center p-6"
     >
       <form
-        id="login-form"
+        id="register-form"
         class="flex w-full max-w-md flex-col items-center justify-center gap-6 rounded-lg bg-white p-8 shadow-lg"
       >
         <h1 class="text-center text-3xl font-semibold text-gray-800">
-          Login to ZenBlogs
+          Register for ZenBlogs
         </h1>
+
+        <div class="flex w-full flex-col gap-2">
+          <label for="name" class="hidden text-sm font-medium text-gray-700"
+            >Name</label
+          >
+          <input
+            type="text"
+            name="name"
+            id="name"
+            placeholder="Full Name"
+            required
+            class="w-full rounded-md border border-gray-300 p-3 shadow-sm focus:border-purple-500 focus:outline-none focus:ring focus:ring-purple-200"
+          />
+        </div>
 
         <div class="flex w-full flex-col gap-2">
           <label for="email" class="hidden text-sm font-medium text-gray-700"
@@ -44,10 +58,10 @@ import Base from "@layouts/Base.astro";
         </div>
 
         <p>
-          Don't have an account? <a
-            href="/register"
+          Already have an account? <a
+            href="/login"
             class="text-purple-500 underline transition duration-300 ease-in-out hover:text-purple-600"
-            >Register.</a
+            >Login.</a
           >
         </p>
 
@@ -55,7 +69,7 @@ import Base from "@layouts/Base.astro";
           type="submit"
           class="w-full rounded-md bg-purple-700 p-3 text-xl font-black uppercase text-white transition duration-300 ease-in-out hover:bg-purple-600"
         >
-          Login
+          Register
         </button>
       </form>
     </div>
@@ -63,19 +77,25 @@ import Base from "@layouts/Base.astro";
 </Base>
 
 <script>
-  const loginForm = document.getElementById("login-form") as HTMLFormElement;
+  const registerForm = document.getElementById(
+    "register-form",
+  ) as HTMLFormElement;
 
-  loginForm.addEventListener("submit", async (event) => {
+  registerForm.addEventListener("submit", async (event) => {
     event.preventDefault();
 
-    const email = loginForm.email.value;
-    const password = loginForm.password.value;
+    const form = new FormData(registerForm);
 
-    if (email == "contact@nnisarg.in" && password == "password") {
-      sessionStorage.setItem("user", "Nnisarg");
+    const name = form.get("name") as string;
+    const email = form.get("email") as string;
+    const password = form.get("password") as string;
+
+    // Simulate successful registration
+    if (name && email && password) {
+      sessionStorage.setItem("user", name);
       window.location.href = "/";
     } else {
-      alert("Invalid credentials");
+      alert("All fields are required");
     }
   });
 </script>
